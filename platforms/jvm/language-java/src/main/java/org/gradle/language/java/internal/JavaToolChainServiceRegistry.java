@@ -19,6 +19,7 @@ package org.gradle.language.java.internal;
 import org.gradle.api.internal.ClassPathRegistry;
 import org.gradle.api.internal.tasks.compile.DefaultJavaCompilerFactory;
 import org.gradle.api.internal.tasks.compile.processing.AnnotationProcessorDetector;
+import org.gradle.initialization.layout.BuildLayout;
 import org.gradle.initialization.layout.ProjectCacheDir;
 import org.gradle.internal.service.ServiceRegistration;
 import org.gradle.internal.service.scopes.AbstractPluginServiceRegistry;
@@ -36,8 +37,8 @@ public class JavaToolChainServiceRegistry extends AbstractPluginServiceRegistry 
     }
 
     private static class ProjectScopeCompileServices {
-        JavaCompilerFactory createJavaCompilerFactory(WorkerDaemonFactory workerDaemonFactory, JavaForkOptionsFactory forkOptionsFactory, WorkerDirectoryProvider workerDirectoryProvider, ExecHandleFactory execHandleFactory, AnnotationProcessorDetector processorDetector, ClassPathRegistry classPathRegistry, ActionExecutionSpecFactory actionExecutionSpecFactory, ProjectCacheDir projectCacheDir) {
-            return new DefaultJavaCompilerFactory(workerDirectoryProvider, workerDaemonFactory, forkOptionsFactory, execHandleFactory, processorDetector, classPathRegistry, actionExecutionSpecFactory, projectCacheDir);
+        JavaCompilerFactory createJavaCompilerFactory(WorkerDaemonFactory workerDaemonFactory, JavaForkOptionsFactory forkOptionsFactory, WorkerDirectoryProvider workerDirectoryProvider, ExecHandleFactory execHandleFactory, AnnotationProcessorDetector processorDetector, ClassPathRegistry classPathRegistry, ActionExecutionSpecFactory actionExecutionSpecFactory, BuildLayout buildLayout, ProjectCacheDir projectCacheDir) {
+            return new DefaultJavaCompilerFactory(workerDirectoryProvider, workerDaemonFactory, forkOptionsFactory, execHandleFactory, processorDetector, classPathRegistry, actionExecutionSpecFactory, buildLayout, projectCacheDir);
         }
 
     }
