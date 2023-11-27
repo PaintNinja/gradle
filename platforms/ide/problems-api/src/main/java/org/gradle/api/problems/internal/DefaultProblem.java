@@ -40,7 +40,7 @@ public class DefaultProblem implements Problem {
     private final String description;
     private final List<String> solutions;
     private final RuntimeException cause;
-    private final String problemCategory;
+    private final ProblemCategory problemCategory;
     private final Map<String, Object> additionalData;
 
     protected DefaultProblem(
@@ -51,7 +51,7 @@ public class DefaultProblem implements Problem {
         @Nullable String description,
         @Nullable List<String> solutions,
         @Nullable RuntimeException cause,
-        String problemCategory,
+        ProblemCategory problemCategory,
         Map<String, Object> additionalData
     ) {
         this.label = label;
@@ -103,7 +103,7 @@ public class DefaultProblem implements Problem {
 
     @Override
     public ProblemCategory getProblemCategory() {
-        return new DefaultProblemCategory(problemCategory);
+        return problemCategory;
     }
 
     @Override

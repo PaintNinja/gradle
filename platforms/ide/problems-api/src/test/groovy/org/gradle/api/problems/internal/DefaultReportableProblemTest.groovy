@@ -81,6 +81,7 @@ class DefaultReportableProblemTest extends Specification {
             "a:b:c",
             additionalData,
             internalProblems
+
         )
     }
 

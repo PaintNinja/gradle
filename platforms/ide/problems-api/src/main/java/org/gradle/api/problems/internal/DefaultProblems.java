@@ -20,6 +20,7 @@ import org.gradle.api.problems.Problem;
 import org.gradle.api.problems.ProblemBuilder;
 import org.gradle.api.problems.ProblemBuilderSpec;
 import org.gradle.api.problems.ProblemTransformer;
+import org.gradle.api.problems.Problems;
 import org.gradle.api.problems.ReportableProblem;
 import org.gradle.internal.operations.BuildOperationProgressEventEmitter;
 import org.gradle.internal.service.scopes.Scopes;
@@ -32,6 +33,8 @@ import java.util.List;
 public class DefaultProblems implements InternalProblems {
     private final BuildOperationProgressEventEmitter buildOperationProgressEventEmitter;
     private final List<ProblemTransformer> transformers;
+
+    private String namespace = "gradle";
 
     public DefaultProblems(BuildOperationProgressEventEmitter buildOperationProgressEventEmitter) {
         this(buildOperationProgressEventEmitter, Collections.<ProblemTransformer>emptyList());
@@ -46,8 +49,14 @@ public class DefaultProblems implements InternalProblems {
     }
 
     @Override
+    public Problems withPluginNamespace(String pluginId) {
+        this.namespace = DefaultProblemCategory.GRADLE_PLUGIN_MARKER + ":" + pluginId;
+        return this;
+    }
+
+    @Override
     public DefaultReportableProblemBuilder createProblemBuilder() {
-        return new DefaultReportableProblemBuilder(this);
+        return new DefaultReportableProblemBuilder(this, namespace);
     }
 
     @Override
