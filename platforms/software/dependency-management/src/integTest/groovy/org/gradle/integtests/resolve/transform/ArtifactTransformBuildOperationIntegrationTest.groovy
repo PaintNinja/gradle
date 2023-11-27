@@ -1363,14 +1363,14 @@ class ArtifactTransformBuildOperationIntegrationTest extends AbstractIntegration
         outputContains("Task-only execution plan: [PlannedTask('Task :consumer:hello', deps=[])]")
 
         getPlannedNodes(0)
-        getExecutePlannedStepOperations(0).empty
+        getExecutePlannedStepOperations(1)
 
-        buildOperations.progress(IdentifyTransformExecutionProgressDetails).size() == 3
+        buildOperations.progress(IdentifyTransformExecutionProgressDetails).size() == 4
         // The execution engine in DependencyManagementBuildScopeServices doesn't fire build operations,
         // except for instrumentation transforms
         buildOperations.all(ExecuteWorkBuildOperationType).size() == 1
         buildOperations.all(SnapshotTransformInputsBuildOperationType).size() == 1
-        buildOperations.all(ExecuteTransformActionBuildOperationType).size() == 3
+        buildOperations.all(ExecuteTransformActionBuildOperationType).size() == 4
     }
 
     def "planned transform steps from project buildscript context are captured"() {
@@ -1389,14 +1389,14 @@ class ArtifactTransformBuildOperationIntegrationTest extends AbstractIntegration
         outputContains("Task-only execution plan: [PlannedTask('Task :consumer:hello', deps=[])]")
 
         getPlannedNodes(0)
-        getExecutePlannedStepOperations(2)
+        getExecutePlannedStepOperations(4)
 
-        buildOperations.progress(IdentifyTransformExecutionProgressDetails).size() == 3
+        buildOperations.progress(IdentifyTransformExecutionProgressDetails).size() == 4
         // The execution engine in DependencyManagementBuildScopeServices doesn't fire build operations
         // except for instrumentation transforms
         buildOperations.all(ExecuteWorkBuildOperationType).size() == 1
         buildOperations.all(SnapshotTransformInputsBuildOperationType).size() == 1
-        buildOperations.all(ExecuteTransformActionBuildOperationType).size() == 3
+        buildOperations.all(ExecuteTransformActionBuildOperationType).size() == 4
     }
 
     private void setupProjectTransformInBuildScriptBlock(boolean inExternalScript) {
